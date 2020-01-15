@@ -44,13 +44,13 @@ object App  {
 
     var partitioncols= ListBuffer("IPMTDT","INT_PMT_DATE","DEAL_ID")
     var values1 = ListBuffer(List("YEAR","IPMTDT","MM/dd/yyyy","year"),List("Mnoth","IPMTDT","MM/dd/yyyy","month"),List("DEAL_ID","DEAL_ID","None","none"))
-    var values2 = ("Mnoth","IPMTDT","MM/dd/yyyy","month")
-    var values3 =("DEAL_ID","DEAL_ID","None","none")
+    var values2 = List("Mnoth","IPMTDT","MM/dd/yyyy","month")
+    var values3 =List("DEAL_ID","DEAL_ID","None","none")
     var derived_col = ListBuffer("YEAR","MONTH","DEAL")
     var base_col = ListBuffer("IPMTDT","INT_PMT_DATE","DEAL_ID")
     var base_format = ListBuffer("MM/dd/yyyy","mm/dd/yy 0:00","STRING")
     var derived_exp = ListBuffer("year","month","STRING")
-    var m =  ListBuffer[List[String]]()
+    var m :ListBuffer[List[String]] =  ListBuffer[List[String]]()
     import spark.implicits._
     //var result_df_list = new ListBuffer[DataFrame]()
     //var df13 = Seq[Seq[AnyVal]]
@@ -66,16 +66,17 @@ object App  {
     println(personDS.getClass)
     personDS.show()
 
-    val personDF = PersonList.toDF()
+  val personDF = PersonList.toDF()
     println(personDF.getClass)
     personDF.show()
     personDF.select("name", "age").show()
 
-   // m ++=List(values2)
-    //m ++= List(values3)
+    m ++=List(values2)
+    m ++= List(values3)
     println(m)
-    val df12 = m.toDF("Der","base","format","desire")
-    df12.show()
+    var m21=m.map(x => (x(0).toString, x(1).toString, x(2).toString, x(3).toString))
+    val mfg = spark.createDataFrame(m21).toDF("der","base","base_for","des_for")
+    mfg.show()
 
    /*for(i<-0 to partitioncols.size-1){
      var colname :String=partitioncols(i)
