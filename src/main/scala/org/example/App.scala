@@ -42,9 +42,17 @@ object App  {
     dfg.show()
 
 
+    val nestedList1 = ListBuffer(
+      List(2,("A","B","C"),1,("1","2","3"),1,("us-nj-07306")),
+      List(3,("String","String","String","String","String","String"),1,("String","String","String","String","String","String"),1,("String","String","String","String","String","String")),
+      List(3,("String","String","String","String","String","String"),2,("String","String","String","String","String","String"),1,("String","String","String","String","String","String")),
+      List(3,("String","String","String","String","String","String"),2,("String","String","String","String","String","String"),2,("String","String","String","String","String","String")),
+      List(3,("String","String","String","String","String","String"),1,("String","String","String","String","String","String"),2,("String","String","String","String","String","String"))
+    )
+
     var partitioncols= ListBuffer("IPMTDT","INT_PMT_DATE","DEAL_ID")
     var values1 = ListBuffer(List("YEAR","IPMTDT","MM/dd/yyyy","year"),List("Mnoth","IPMTDT","MM/dd/yyyy","month"),List("DEAL_ID","DEAL_ID","None","none"))
-    var values2 = List("Mnoth","IPMTDT","MM/dd/yyyy","month")
+    var values2 = List("year,Mnoth,Date","1,2,3","MM/dd/yyyy","month")
     var values3 =List("DEAL_ID","DEAL_ID","None","none")
     var derived_col = ListBuffer("YEAR","MONTH","DEAL")
     var base_col = ListBuffer("IPMTDT","INT_PMT_DATE","DEAL_ID")
@@ -202,4 +210,6 @@ object App  {
 
   }
 }
+
+
 
